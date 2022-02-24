@@ -1,2 +1,2 @@
-# rest-blog-ui
-# Rest-Blog API of Simple Blogging Application using Django.
+# Rest-Blog
+# UI of Simple Blogging Application using React.
