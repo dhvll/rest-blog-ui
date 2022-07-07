@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { Container, Header } from "semantic-ui-react";
+import { Container, Header, Image } from "semantic-ui-react";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useParams } from "react-router-dom";
@@ -30,10 +30,18 @@ const PostDetail = () => {
   }, []);
   return (
     <Container text>
-      <Header>{post && post.title}</Header>
       {error && <Message negative message={error} />}
       {loading && <Loader />}
-      {post && <p>{post.content}</p>}
+      {post && (
+        <div>
+          <Image src={post.thumbnail} />
+          <Header as="h1">{post.title}</Header>
+          <Header as="h4">
+            Last updated:{` ${new Date(post.updated_at).toLocaleDateString()}`}
+          </Header>
+          <p>{post.content}</p>
+        </div>
+      )}
     </Container>
   );
 };
