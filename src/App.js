@@ -18,9 +18,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<PostList />} />
           <Route path="/create" element={<PostCreate />} />
-          <Route path="/post/:postSlug" element={<PostDetail />} />
-          <Route path="/post/:postSlug/update" element={<PostUpdate />} />
-          <Route path="/post/:postSlug/delete" element={<PostDelete />} />
+          <Route path="/posts/:postSlug" element={<PostDetail />} />
+          <Route path="/posts/:postSlug/update" element={<PostUpdate />} />
+          <Route path="/posts/:postSlug/delete" element={<PostDelete />} />
         </Routes>
       </Layout>
     </BrowserRouter>
