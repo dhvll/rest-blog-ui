@@ -1,6 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Header, Image } from "semantic-ui-react";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
