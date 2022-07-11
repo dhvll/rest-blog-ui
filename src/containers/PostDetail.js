@@ -4,6 +4,7 @@ import { Container, Header, Image } from "semantic-ui-react";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useParams } from "react-router-dom";
+import { api } from "../api";
 
 const PostDetail = () => {
   const [post, setPost] = useState(null);
@@ -15,9 +16,7 @@ const PostDetail = () => {
     async function fetchData() {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `http://127.0.0.1:8000/api/posts/${postSlug}`
-        );
+        const res = await axios.get(api.posts.retrieve(postSlug));
         setPost(res.data);
         setLoading(false);
       } catch (error) {

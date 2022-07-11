@@ -3,6 +3,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Header, Divider, Item } from "semantic-ui-react";
+import { api } from "../api";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 
@@ -15,7 +16,7 @@ const PostList = () => {
     async function fetchData() {
       setLoading(true);
       try {
-        const res = await axios.get("http://127.0.0.1:8000/api/posts/");
+        const res = await axios.get(api.posts.list);
         setPosts(res.data);
         setLoading(false);
       } catch (error) {
