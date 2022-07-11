@@ -4,6 +4,9 @@ import axios from "axios";
 import { history } from "../helpers";
 import Message from "../components/Message";
 import { api } from "../api";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
 
 const PostCreate = () => {
   const [error, setError] = useState(null);
@@ -12,6 +15,7 @@ const PostCreate = () => {
   const [title, setTitle] = useState(null);
   const [markdown, setMarkdown] = useState(null);
   const [thumbnail, setThumbnail] = useState(null);
+  const mdParser = new MarkdownIt(/* Markdown-it options */);
 
   const fileInputRef = useRef();
 
@@ -32,14 +36,12 @@ const PostCreate = () => {
         },
       })
       .then((res) => {
-        console.log(res);
         setLoading(false);
         history.push("/");
         window.location.reload();
         // redirect back to the post list
       })
       .catch((err) => {
-        console.log(err);
         setLoading(false);
         setError(err.message || err);
       });
@@ -61,11 +63,10 @@ const PostCreate = () => {
             onChange={(e) => setTitle(e.target.value)}
           />
         </Form.Field>
-        <Form.TextArea
-          label="Markdown content"
-          placeholder="This is your post content..."
-          value={markdown}
-          onChange={(e) => setMarkdown(e.target.value)}
+        <MdEditor
+          style={{ height: "500px" }}
+          renderHTML={(text) => mdParser.render(text)}
+          onChange={({ text }) => setMarkdown(text)}
         />
         <Form.Field>
           <Button
