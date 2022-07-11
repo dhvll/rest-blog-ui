@@ -5,7 +5,6 @@ import PostList from "./containers/PostList";
 import PostDetail from "./containers/PostDetail";
 import PostCreate from "./containers/PostCreate";
 import PostUpdate from "./containers/PostUpdate";
-import PostDelete from "./containers/PostDelete";
 import Layout from "./containers/Layout";
 import { history } from "./helpers";
 
@@ -18,7 +17,6 @@ function App() {
           <Route path="/create" element={<PostCreate />} />
           <Route exact path="/posts/:postSlug" element={<PostDetail />} />
           <Route path="/posts/:postSlug/update" element={<PostUpdate />} />
-          <Route path="/posts/:postSlug/delete" element={<PostDelete />} />
         </Routes>
       </Layout>
     </BrowserRouter>
