@@ -1,43 +1,27 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Header, Image } from "semantic-ui-react";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import { useParams } from "react-router-dom";
 import { api } from "../api";
+import { useFetch } from "../helpers";
 
 const PostDetail = () => {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const { postSlug } = useParams();
+  const { data, loading, error } = useFetch(api.posts.retrieve(postSlug));
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      try {
-        const res = await axios.get(api.posts.retrieve(postSlug));
-        setPost(res.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
   return (
     <Container text>
       {error && <Message negative message={error} />}
       {loading && <Loader />}
-      {post && (
+      {data && (
         <div>
-          <Image src={post.thumbnail} />
-          <Header as="h1">{post.title}</Header>
+          <Image src={data.thumbnail} />
+          <Header as="h1">{data.title}</Header>
           <Header as="h4">
-            Last updated:{` ${new Date(post.updated_at).toLocaleDateString()}`}
+            Last updated:{` ${new Date(data.updated_at).toLocaleDateString()}`}
           </Header>
-          <p>{post.content}</p>
+          <p>{data.content}</p>
         </div>
       )}
     </Container>

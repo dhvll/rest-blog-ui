@@ -35,7 +35,7 @@ const PostCreate = () => {
         console.log(res);
         setLoading(false);
         history.push("/");
-        // window.location.reload();
+        window.location.reload();
         // redirect back to the post list
       })
       .catch((err) => {
