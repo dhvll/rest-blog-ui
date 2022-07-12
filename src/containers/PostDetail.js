@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { api } from "../api";
 import { history, useFetch } from "../helpers";
 import axios from "axios";
+import ReactMarkdown from "react-markdown";
 
 const DeleteModal = ({ title, postSlug, thumbnail }) => {
   const [error, setError] = useState(null);
@@ -83,6 +84,18 @@ const DeleteModal = ({ title, postSlug, thumbnail }) => {
   );
 };
 
+const Blockquote = (props) => {
+  return (
+    <blockquote>
+      content={props.value ? props.value : props.children}
+    </blockquote>
+  );
+};
+
+const Renderers = {
+  blockquote: Blockquote,
+};
+
 const PostDetail = () => {
   const { postSlug } = useParams();
   const { data, loading, error } = useFetch(api.posts.retrieve(postSlug));
@@ -98,7 +111,7 @@ const PostDetail = () => {
           <Header as="h4">
             Last updated:{` ${new Date(data.updated_at).toLocaleDateString()}`}
           </Header>
-          <p>{data.content}</p>
+          <ReactMarkdown children={data.content} renderers={Renderers} />
           <Divider />
           <DeleteModal
             title={data.title}
